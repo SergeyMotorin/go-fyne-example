@@ -1,27 +1,35 @@
 package main
 
 import (
+	"fmt"
+
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/container"
-	"fyne.io/fyne/v2/widget"
 )
 
 // On Ubuntu you need install some packages:
 // apt-get install libxcursor-dev libxrandr-dev libxinerama-dev libxi-dev
 
+func initMainDialog(app fyne.App) *MainDialog {
+	newDialog := &MainDialog{app: app, window: app.NewWindow("Main Window")}
+
+	newDialog.Init()
+
+	return newDialog
+}
+
 func main() {
 	myApp := app.New()
-	myWindow := myApp.NewWindow("My Window")
 
-	helloMessage := widget.NewLabel("Hi! You were able to launch me")
-	myButton := widget.NewButton("Press me", func() {
-		helloMessage.SetText("Now you've pressed the button!")
-	})
+	mainDialog := initMainDialog(myApp)
 
-	myWindow.SetContent(container.NewVBox(
-		helloMessage,
-		myButton,
-	))
+	mainDialog.Show()
 
-	myWindow.ShowAndRun()
+	myApp.Run()
+
+	displayExited()
+}
+
+func displayExited() {
+	fmt.Println("Exited")
 }
