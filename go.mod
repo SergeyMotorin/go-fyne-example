@@ -1,4 +1,4 @@
-module learn-go/go-fyne-example
+module github.com/pavloffcom/go-fyne-example
 
 go 1.18
 
