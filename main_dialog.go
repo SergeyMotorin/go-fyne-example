@@ -4,6 +4,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"fyne.io/fyne/v2/layout"
 )
 
 type MainDialog struct {
@@ -12,16 +13,19 @@ type MainDialog struct {
 }
 
 func (dialog *MainDialog) Init() {
-	helloMessage := widget.NewLabel("Hi! You were able to launch me")
+	infoText := widget.NewLabel("What is two plus two?")
 
-	myButton := widget.NewButton("Press me", func() {
-		helloMessage.SetText("Now you've pressed the button!")
+	centered := container.New(layout.NewHBoxLayout(), layout.NewSpacer(), infoText, layout.NewSpacer())
+
+	button1 := widget.NewButton("It's four", func() {
+		infoText.SetText("Excelent!")
 	})
 
-	dialog.window.SetContent(container.NewVBox(
-		helloMessage,
-		myButton,
-	))
+	button2 := widget.NewButton("It's five", func() {
+		infoText.SetText("You're wrong!")
+	})
+
+	dialog.window.SetContent(container.NewVBox(centered, button1, button2))
 }
 
 func (dialog *MainDialog) Show() {
